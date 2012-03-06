@@ -8,12 +8,13 @@ from pygments.formatters.terminal256 import Terminal256Formatter
 from pygments.formatters.terminal import TerminalFormatter
 from pygments.lexer import RegexLexer, bygroups
 from pygments.styles import get_style_by_name, STYLE_MAP
+from pygson.json_lexer import JSONLexer
 from . import solarized
 
 
 DEFAULT_STYLE = 'solarized'
 AVAILABLE_STYLES = [DEFAULT_STYLE] + STYLE_MAP.keys()
-TYPE_JS = 'application/javascript'
+TYPE_JSON = 'application/json'
 FORMATTER = (Terminal256Formatter
              if '256color' in os.environ.get('TERM', '')
              else TerminalFormatter)
@@ -47,12 +48,12 @@ class PrettyHttp(object):
     def body(self, content, content_type):
         content_type = content_type.split(';')[0]
         if 'json' in content_type:
-            content_type = TYPE_JS
+            content_type = TYPE_JSON
             try:
                 # Indent JSON
                 content = json.dumps(json.loads(content),
-                                    sort_keys=True, indent=4)
-            except Exception:
+                                     sort_keys=True, indent=4)
+            except:
                 pass
         try:
             lexer = get_lexer_for_mimetype(content_type)

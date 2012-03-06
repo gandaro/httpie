@@ -9,7 +9,7 @@ if sys.argv[-1] == 'test':
     sys.exit()
 
 
-requirements = ['requests>=0.10.4', 'Pygments>=1.4']
+requirements = ['requests>=0.10.4', 'Pygments>=1.4', 'pygments-json>=0.1']
 if sys.version_info < (2, 7):
     requirements.append('argparse>=1.2.1')
 
